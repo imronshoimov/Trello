@@ -1,7 +1,10 @@
 CREATE TABLE users(
     id serial primary key,
     name varchar(150) not null,
-    role int not null default 1
+    email varchar(150) not null,
+    user_name varchar(150) not null,
+    password varchar(50) not null, 
+    role int
 );
 
 CREATE TABLE cards(
