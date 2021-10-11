@@ -19,5 +19,3 @@ CREATE TABLE cards(
     task_status int null
 );
 
-
-
