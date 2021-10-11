@@ -3,8 +3,8 @@ CREATE TABLE users(
     name varchar(150) not null,
     email varchar(150) not null,
     user_name varchar(150) not null,
-    password varchar(50) not null, 
-    role int
+    password varchar(200) not null, 
+    role int null
 );
 
 CREATE TABLE cards(
@@ -15,5 +15,9 @@ CREATE TABLE cards(
     sub_task text not null,
     file varchar(200) not null,
     filter text [] not null,
-    status int not null default 0
+    status int not null default 0,
+    task_status int null
 );
+
+
+

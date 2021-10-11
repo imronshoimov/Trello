@@ -1,40 +1,38 @@
 const model = require("../models/users");
 const { sign } = require("../lib/jwt");
-const {  maxAge } = require("../config/keys");
 
 exports.getData = async (req, res) => {
     const data = await model.getData();
     if(data) {
-        res.status()
-            .send(data)
-            .json({ message: "" });
+        res.status(200)
+            .send(data);
     } else {
-        res.status()
-            .json({ message: "" });
+        res.status(401)
+            .json({ message: "There is an error, please try again!" });
     };
 };
 
 exports.registerData = async (req, res) => {
-    const data = await model.registeruser(req.body);
+    const data = await model.registerUser(req.body);
     if(data) {
-        res.cookie("token", sign(data.id), { maxAge })
-            .status()
-            .json({ message: "", id: data.id });
+        const token = sign(data);
+        res.status(201)
+            .json({ message: "You successfully registered", token, id: data.id });
     } else {
-        res.status()
-            .json({ message: "" });
+        res.status(400)
+            .json({ message: "Bad request, please try again!" });
     };
 };
 
 exports.loginData = async (req, res) => {
     const data = await model.loginUser(req.body);
     if(data) {
-        res.cookie("token", sign(data.id), { maxAge })
-            .status()
-            .json({ message: "", id: data.id });
+        const token = sign(data);
+        res.status(201)
+            .json({ message: "You successfully logged in", token, id: data.id });
     } else {
-        res.status()
-            .json({ message: "" });
+        res.status(400)
+            .json({ message: "Bad request, please try again!" });
     };
 };
 
