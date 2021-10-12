@@ -16,7 +16,7 @@ CREATE TABLE cards(
     description text not null,
     sub_task text not null,
     file varchar(200) not null,
-    filter text [] not null,
+    filter text [] null,
     status status_type not null default '0',
     task_status int null
 );

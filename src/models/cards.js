@@ -7,21 +7,22 @@ FROM cards;
 `;
 
 const INSERT_TASKS = `
-INSER INTO cards(
+INSERT INTO cards(
     user_id,
-    description,
     task,
-    file
+    description,
     sub_task,
+    file
 ) VALUES ( $1, $2, $3, $4, $5 )
-`
+RETURNING id;
+`;
 
 exports.getTasks = () => fetchAll(SELECT_TASKS);
 exports.insertTasks = (id, data, image) => fetch(
     INSERT_TASKS, 
     id, 
-    data.description, 
     data.task, 
-    image, 
-    data.subTask
+    data.description, 
+    data.subTask,
+    image
 );
