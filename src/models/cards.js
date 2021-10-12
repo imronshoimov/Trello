@@ -64,6 +64,7 @@ RIGHT JOIN users u ON u.id = c.user_id
 WHERE u.user_name ILIKE '%' || $1 || '%' OR
 u.email ILIKE '%' || $1 || '%' OR
 c.task ILIKE '%' || $1 || '%' OR
+c.time ILIKE '%' || $1 || '%' OR
 c.task_status ILIKE '%' || $1 || '%';
 `;
 
