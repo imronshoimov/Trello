@@ -18,8 +18,23 @@ CREATE TABLE cards(
     file varchar(200) not null,
     filter varchar(200) null,
     status status_type not null default 'open',
-    task_status varchar(5) default '100%'
+    task_status varchar(5) default '100%',
+    time timestamptz default current_timestamp
 );
 
+SELECT
+    u.name,
+    c.task,
+    c.description,
+    c.sub_task,
+    c.file,
+    c.status,
+    c.task_status,
+    TO_CHAR(c.time, 'yyyy-MM-dd HH24:MI:SS') as time 
+FROM cards c 
+RIGHT JOIN users u ON u.id = c.user_id
+WHERE u.name ILIKE '%Imron%' AND
+c.task ILIKE '%gh%' AND
+c.task_status ILIKE '%50%%';
 
 
