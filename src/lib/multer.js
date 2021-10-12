@@ -23,7 +23,7 @@ const fileUpload = () => {
                 req.body.multerError = error;
             }
         }
-    })
+    });
 };
 
 module.exports = fileUpload;

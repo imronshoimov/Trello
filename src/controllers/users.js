@@ -1,5 +1,6 @@
 const model = require("../models/users");
 const { sign } = require("../lib/jwt");
+const { maxAge } = require("../config/keys");
 
 exports.getData = async (req, res) => {
     const data = await model.getData();
@@ -17,6 +18,7 @@ exports.registerData = async (req, res) => {
     if(data) {
         const token = sign(data);
         res.status(201)
+            .cookie("token", token, { maxAge })
             .json({ message: "You successfully registered", token, id: data.id });
     } else {
         res.status(401)
@@ -29,6 +31,7 @@ exports.loginData = async (req, res) => {
     if(data) {
         const token = sign(data);
         res.status(302)
+            .cookie("token", token, { maxAge })
             .json({ message: "You successfully logged in", token, id: data.id });
     } else {
         res.status(404)
