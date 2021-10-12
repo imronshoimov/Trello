@@ -12,8 +12,9 @@ INSERT INTO cards(
     task,
     description,
     sub_task,
-    file
-) VALUES ( $1, $2, $3, $4, $5 )
+    file,
+    task_status
+) VALUES ( $1, $2, $3, $4, $5, $6 )
 RETURNING id;
 `;
 
@@ -29,8 +30,15 @@ UPDATE cards
 SET task = $1,
     description = $2,
     sub_task = $3,
-    file = $4
-WHERE id = $5
+    file = $4,
+    task_status = $5
+WHERE id = $6
+RETURNING id;
+`;
+
+const DELETE_TASK = `
+DELETE FROM cards
+WHERE id = $1
 RETURNING id;
 `;
 
@@ -41,7 +49,8 @@ exports.insertTasks = (id, data, image) => fetch(
     data.task, 
     data.description, 
     data.subTask,
-    image
+    image,
+    data.taskStatus
 );
 exports.selectImage = (id) => fetch(SELECT_IMAGE, id);
 exports.updateTask = (id, data, image) => fetch(
@@ -49,6 +58,8 @@ exports.updateTask = (id, data, image) => fetch(
     data.task, 
     data.description, 
     data.subTask, 
-    image, 
+    image,
+    data.taskStatus, 
     id
 );
+exports.deleteTask = (id) => fetch(DELETE_TASK, id);

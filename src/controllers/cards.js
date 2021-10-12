@@ -40,3 +40,17 @@ exports.updateData = async (req, res) => {
             .json({ message: "There is an error, please try again!" });
     };
 };
+
+exports.deleteData = async (req, res) => {
+    const fileName = await model.selectImage(req.params.id);
+    fs.unlinkSync(path.join(process.cwd(), "src", "uploads", fileName.file));
+
+    const data = await model.deleteTask(req.params.id);
+    if(data) {
+        res.status(200)
+            .json({ messsage: "Successfully deleted", id: data.id })
+    } else {
+        res.status(400)
+            .json({ message: "There is an error, please try again!" });
+    };
+};

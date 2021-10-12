@@ -1,4 +1,4 @@
-CREATE TYPE status_type AS ENUM('0', '1', '2', '3');
+CREATE TYPE status_type AS ENUM('open', 'progress', 'review', 'test');
 
 CREATE TABLE users(
     id serial primary key,
@@ -16,9 +16,9 @@ CREATE TABLE cards(
     description text not null,
     sub_task text not null,
     file varchar(200) not null,
-    filter text [] null,
-    status status_type not null default '0',
-    task_status int null
+    filter varchar(200) null,
+    status status_type not null default 'open',
+    task_status varchar(5) default '100%'
 );
 
 
