@@ -54,3 +54,14 @@ exports.deleteData = async (req, res) => {
             .json({ message: "There is an error, please try again!" });
     };
 };
+
+exports.updateStatus = async (req, res) => {
+    const data = await model.setStatus(req.params.id, req.body);
+    if(data) {
+        res.status(200)
+            .json({ message: "Status successfully updated", id: data.id });
+    } else {
+        res.status(400)
+            .json({ message: "There is an error, please try again!" });
+    };
+};

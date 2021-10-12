@@ -42,7 +42,15 @@ WHERE id = $1
 RETURNING id;
 `;
 
+const UPDATE_STATUS = `
+UPDATE cards
+SET status = $1
+WHERE id = $2
+RETURNING id;
+`;
+
 exports.getTasks = () => fetchAll(SELECT_TASKS);
+
 exports.insertTasks = (id, data, image) => fetch(
     INSERT_TASKS, 
     id, 
@@ -52,7 +60,9 @@ exports.insertTasks = (id, data, image) => fetch(
     image,
     data.taskStatus
 );
+
 exports.selectImage = (id) => fetch(SELECT_IMAGE, id);
+
 exports.updateTask = (id, data, image) => fetch(
     UPDATE_TASK, 
     data.task, 
@@ -62,4 +72,7 @@ exports.updateTask = (id, data, image) => fetch(
     data.taskStatus, 
     id
 );
+
 exports.deleteTask = (id) => fetch(DELETE_TASK, id);
+
+exports.setStatus = (id, { status }) => fetch(UPDATE_STATUS, status, id);
