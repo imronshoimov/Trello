@@ -49,6 +49,24 @@ WHERE id = $2
 RETURNING id;
 `;
 
+const FILTER_TASKS = `
+SELECT
+    u.name,
+    c.task,
+    c.description,
+    c.sub_task,
+    c.file,
+    c.status,
+    c.task_status,
+    TO_CHAR(c.time, 'yyyy-MM-dd HH24:MI:SS') as time 
+FROM cards c 
+RIGHT JOIN users u ON u.id = c.user_id
+WHERE u.user_name ILIKE '%' || $1 || '%' OR
+u.email ILIKE '%' || $1 || '%' OR
+c.task ILIKE '%' || $1 || '%' OR
+c.task_status ILIKE '%' || $1 || '%';
+`;
+
 exports.getTasks = () => fetchAll(SELECT_TASKS);
 
 exports.insertTasks = (id, data, image) => fetch(
@@ -76,3 +94,5 @@ exports.updateTask = (id, data, image) => fetch(
 exports.deleteTask = (id) => fetch(DELETE_TASK, id);
 
 exports.setStatus = (id, { status }) => fetch(UPDATE_STATUS, status, id);
+
+exports.filterTasks = ({ filter }) => fetch(FILTER_TASKS, filter);

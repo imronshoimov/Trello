@@ -18,7 +18,6 @@ exports.registerData = async (req, res) => {
     if(data) {
         const token = sign(data);
         res.status(201)
-            .cookie("token", token, { maxAge })
             .json({ message: "You successfully registered", token, id: data.id });
     } else {
         res.status(401)
@@ -31,11 +30,10 @@ exports.loginData = async (req, res) => {
     if(data) {
         const token = sign(data);
         res.status(302)
-            .cookie("token", token, { maxAge })
             .json({ message: "You successfully logged in", token, id: data.id });
     } else {
         res.status(404)
-            .json({ message: "Bad request, please try again!" });
+            .json({ message: "Username or password is incorrect!" });
     };
 };
 

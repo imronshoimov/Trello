@@ -65,3 +65,14 @@ exports.updateStatus = async (req, res) => {
             .json({ message: "There is an error, please try again!" });
     };
 };
+
+exports.filterData = async (req, res) => {
+    const data = await model.filterTasks(req.body);
+    if(data) {
+        res.status(302)
+            .send(data);
+    } else {
+        res.status(404)
+            .json({ message: "Not found, please try again!" });
+    };
+};
