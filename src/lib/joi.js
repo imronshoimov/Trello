@@ -14,6 +14,6 @@ exports.loginSchema = Joi.object({
 
 exports.tasksSchema = Joi.object({
     task: Joi.string().alphanum().min(3).max(20).required().not(""), 
-    description: Joi.string().alphanum().min(3).required().not(""), 
+    description: Joi.string().alphanum().min(3), 
     subTask: Joi.string().alphanum().min(3)
 });

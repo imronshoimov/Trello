@@ -10,7 +10,7 @@ exports.validateRegister = (req, res, next) => {
     } else {
         next();
     };
-}
+};
 
 exports.validateLogin = (req, res, next) => {
     const data = loginSchema.validate(req.body);
@@ -20,7 +20,7 @@ exports.validateLogin = (req, res, next) => {
     } else {
         next();
     };
-}
+};
 
 exports.validateTasks = (req, res, next) => {
     const data = tasksSchema.validate(req.body);
